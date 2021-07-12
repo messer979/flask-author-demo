@@ -1,0 +1,95 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Contact {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Main content -->
+    <section class="slice py-6 pt-lg-7 pb-lg-8 bg-dark">
+        <!-- Container -->
+        <div class="container">
+            <div class="row row-grid align-items-center">
+                <div class="col-lg-6">
+                    <!-- Heading -->
+                    <h1 class="h1 text-white text-center text-lg-left my-4">
+                        Authors
+                    </h1>
+                </div>
+            </div>
+            <table class="table">
+                <!-- Table headers -->
+                <thead>
+                    <tr style="color: white; ">
+                        <th scope="col">Pen Name</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Social #</th>
+                        <th scope="col">Witholding</th>
+                    </tr>
+                </thead>
+            {% for author in authors %}
+            <tr style="color: white; ">
+              <td>  {{author.pen_name}}         </td>
+              <td>  {{author.first_name}}       </td>
+              <td>  {{author.last_name}}        </td>
+              <td>  {{author.adress}}           </td>
+              <td>  {{author.phone}}            </td>
+              <td>  {{author.email}}            </td>
+              <td>  {{author.social_number}}    </td>
+              <td>  {{author.withholding_tax}}  </td>
+            </tr>
+            {% endfor %}
+        </table>
+        </div>
+    </section>
+ 
+    <section>
+        <div class="container d-flex flex-column">
+            <div class="row align-items-center justify-content-center min-vh-100">
+                <div class="col-md-6 col-lg-5 col-xl-5 py-6 py-md-0">
+                    <div class="card shadow zindex-100 mb-0">
+                        <div class="card-body px-md-5 py-5">
+                            <div class="mb-5">
+                            <form method="post" action="" class="mt-4">
+
+                                {{ form.hidden_tag() }}
+
+                                <div class="form-group">
+                                <label class="form-control-label">Pen Name</label>
+                                    {{ form.pen_name(class="form-control") }}
+                                <label class="form-control-label">First</label>
+                                    {{ form.first_name(class="form-control") }}
+                                <label class="form-control-label">Last</label>
+                                    {{ form.last_name(class="form-control") }}
+                                <label class="form-control-label">Address</label>
+                                    {{ form.adress(class="form-control") }}
+                                <label class="form-control-label">Phone</label>
+                                    {{ form.phone(class="form-control") }}
+                                <label class="form-control-label">Email</label>
+                                    {{ form.email(class="form-control") }}
+                                <label class="form-control-label">Social Number</label>
+                                    {{ form.social_number(class="form-control") }}
+                                <label class="form-control-label">Witholding Tax</label>
+                                    {{ form.withholding_tax(class="form-control") }}
+                                </div>
+
+                                <div class="mt-4">
+                                    <button type="submit" name="submit" class="btn btn-block btn-primary">Submit New Author</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

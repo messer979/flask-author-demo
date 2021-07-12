@@ -7,3 +7,4 @@ flask_bcrypt
 email_validator
 python-decouple
 gunicorn
+pymysql
