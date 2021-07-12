@@ -14,8 +14,8 @@ from jinja2              import TemplateNotFound
 
 # App modules
 from app        import app, lm, db, bc
-from app.models import User
-from app.forms  import LoginForm, RegisterForm
+from app.models import User, Auteur
+from app.forms  import LoginForm, RegisterForm, AuthorForm
 
 # provide login manager with load_user callback
 @lm.user_loader
@@ -106,6 +106,37 @@ def login():
             msg = "Unknown user"
 
     return render_template( 'accounts/login.html', form=form, msg=msg )
+
+# Author
+@app.route('/authors.html', methods=['GET', 'POST'])
+def authors():
+    
+    # Declare the author form
+    form = AuthorForm(request.form)
+    if request.method=='POST':
+        print(form)
+
+    # Flask message injected into the page, in case of any errors
+    msg = None
+
+    # check if both http method is POST and form is valid on submit
+    if form.validate_on_submit():
+
+        # assign form data to variables
+        pen_name = request.form.get('pen_name', '', type=str)
+        first_name = request.form.get('password', '', type=str)
+        last_name = request.form.get('last_name', '', type=str)
+        adress = request.form.get('adress', '', type=str)
+        phone = request.form.get('phone', '', type=str)
+        email = request.form.get('email', '', type=str)
+        social_number = request.form.get('social_number', '', type=str)
+        withholding_tax = request.form.get('withholding_tax', '', type=bool)
+
+        new_author = Auteur(pen_name,first_name,last_name,adress,phone,email,social_number, withholding_tax)
+        new_author.save()
+
+    return render_template( 'authors.html', authors=Auteur.query.all(), form=form, msg=msg )
+
 
 # App main route + generic routing
 @app.route('/', defaults={'path': 'index.html'})
